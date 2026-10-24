@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>3D Dancing Skeleton</title>
+  <style>
+    html, body { margin:0; height:100%; background:radial-gradient(ellipse at 50% 35%, #1b2740 0%, #0a0e17 70%); color:#e8ecf4; font-family:system-ui, sans-serif; overflow:hidden; }
+    canvas#c { position:fixed; inset:0; width:100vw; height:100vh; cursor:grab; touch-action:none; }
+    canvas#c:active { cursor:grabbing; }
+    #ui { position:fixed; top:14px; left:14px; background:rgba(12,16,26,.78); border:1px solid #2a3550; border-radius:10px; padding:12px 16px; font-size:14px; backdrop-filter:blur(4px); }
+    #ui h1 { margin:0 0 8px; font-size:16px; }
+    #ui label { display:block; margin:4px 0; cursor:pointer; }
+    #ui button { margin-top:8px; background:#1d2842; color:#e8ecf4; border:1px solid #34466f; border-radius:6px; padding:6px 12px; cursor:pointer; }
+    #info { margin-top:8px; color:#8fb4ff; font-size:13px; }
+    #hint { position:fixed; bottom:12px; left:50%; transform:translateX(-50%); color:#7d8aa5; font-size:13px; }
+    #preview { position:fixed; right:14px; bottom:14px; width:260px; border:2px solid #2a3550; border-radius:8px; }
+  </style>
+  <script type="importmap">{ "imports": { "three": "{{ url_for('static', filename='three.module.js') }}" } }</script>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <div id="ui">
+    <h1>3D Dancing Skeleton</h1>
+    <label><input type="checkbox" id="head"> Show skull</label>
+    <label><input type="checkbox" id="follow" checked> Follow my position</label>
+    <label><input type="checkbox" id="legs"> Draw legs even if unsure</label>
+    <label><input type="checkbox" id="cam" checked> Camera preview</label>
+    <button id="reset">Reset view</button>
+    <div id="info">connecting…</div>
+  </div>
+  <img id="preview" src="{{ url_for('video_feed') }}" onerror="this.style.display='none'">
+  <div id="hint">drag to rotate · scroll to zoom · raise a hand to light up that arm</div>
+  <script type="module" src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>
